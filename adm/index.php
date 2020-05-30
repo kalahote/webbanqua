@@ -179,7 +179,7 @@ if(isset($_POST['tquat']) && $_POST['tquat']=="tquat")
 		</tr>
 		<tr>
 			<td colspan="2" height="30" style="color:#FFFFCC; background:#66A111;" align="center" valign="middle">
-			Copyright © Hoàng Thành Trung. Công Nghệ Phần Mềm-k55. 
+			Copyright © Nguyễn Quốc Trung. Công Nghệ Phần Mềm. 
 			</td>
 		</tr>
 	</table>
