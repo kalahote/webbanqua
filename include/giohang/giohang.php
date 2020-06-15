@@ -1,4 +1,9 @@
 <?php
+	$strSQL="SELECT * FROM qua ";
+	$gia=mysqli_query($link,$strSQL);
+	$row=mysqli_fetch_array($gia);
+?>
+<?php
 	//kiem tra dang nhap
 	if(!isset($_SESSION['hovaten']) || ($_SESSION['hovaten']==""))
 	{
@@ -55,21 +60,30 @@
                </tr>
 				  <?php 
 				  $tongtien=0;
-				  for($i=0; $i<$n; $i++){ ?>	
-                  <tr>
-                    <td align="center"><?php echo $i+1; ?></td>
-                    <td align="center"><?php echo $arrtensp[$i]; ?></td>
-                    <td align="center" style="height:27px;">
-					<input name="txtsl<?php echo $i; ?>" type="text" style="width:30px" value="<?php echo $arrsoluong[$i]; ?>" maxlength="2" />
-					</td>
-                    <td align="center"><?php echo $arrdongia[$i]; ?></td>
-                    <td align="center"><?php echo $arrdongia[$i]*$arrsoluong[$i]; ?></td>
-                   <td align="center"><a href="#" onclick="xl_giohang('xoasanpham','<?php echo $arrmasp[$i]; ?>')">Xóa</a></td>
-                  </tr>
-				  <?php 
-				   $tongtien+=($arrdongia[$i]*$arrsoluong[$i]);
-				  }
-				  ?> 
+				  for($i=0; $i<$n; $i++){ 
+					  echo "<tr>";
+					foreach($gia as $g)
+					{
+						if($arrmasp[$i] ==$g['ma_qua'])
+						{
+							$a =$i+1;
+							echo "<td>".$a."</td>";
+							echo "<td>".$g['ten_qua']."</td>";
+							echo "<td><input name='txtsl".$i."' type='text' style='width:30px' value='".$arrsoluong[$i]."'maxlength='2' /></td>";
+							echo "<td>".$g['gia']."</td>";
+							echo "<td align='center'>" .$g['gia']*$arrsoluong[$i]."</td>";
+							?>
+						<!-- <td align="center" style="height:27px;">
+							<input name="txtsl<?php echo $i; ?>" type="text" style="width:30px" value="<?php echo $arrsoluong[$i]; ?>" maxlength="2" />
+						</td> -->
+						<td align="center"><a href="#" onclick="xl_giohang('xoasanpham','<?php echo $arrmasp[$i]; ?>')">Xóa</a></td>
+						<?php
+						$tongtien+=($g['gia']*$arrsoluong[$i]);
+						}
+					}
+					echo "</tr>";
+				}
+					?>	
                   <tr>
                     <td colspan="6" align="right" style="height:30px;"><span class="demuc">tổng tiá trị giỏ hàng:
 					</span><span class="ten"> <?php echo number_format($tongtien,0,'.','.'); ?> VNĐ</span>&nbsp;</td>
